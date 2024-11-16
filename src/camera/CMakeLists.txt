@@ -20,6 +20,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(yaml-cpp REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -31,5 +35,19 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+include_directories(${OpenCV_INCLUDE_DIRS} ${YAML_CPP_INCLUDE_DIR})
+
+add_executable(normal src/main.cpp src/normal_camera.cpp src/normal_camera.hpp)
+
+ament_target_dependencies(normal rclcpp cv_bridge sensor_msgs std_msgs)
+
+target_link_libraries(normal ${OPENCV_LIBS} yaml-cpp)
+
+install(TARGETS
+  normal
+  DESTINATION 
+  lib/${PROJECT_NAME}  
+)
 
 ament_package()
