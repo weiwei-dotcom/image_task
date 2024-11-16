@@ -1,13 +1,10 @@
-#include "normal_camera.hpp"
+#include "realsense_camera.hpp"
 
 void NormalCamera::InitParam() {
     
     // 读取参数
-    _config_yaml = YAML::LoadFile("/home/ww/Documents/image_task/src/camera/config/normal_camera.yaml");
+    _config_yaml = YAML::LoadFile("/home/ww/Documents/image_task/src/camera/config/realsense_camera.yaml");
 
-    this->declare_parameter<int>("device_id", 0);
-    this->set_parameter(rclcpp::Parameter("device_id", _config_yaml["device_id"].as<int>()));
-    this->get_parameter<int>("device_id", _config.device_id);
 
     this->declare_parameter<int>("frame_width", 640);
     this->set_parameter(rclcpp::Parameter("frame_width", _config_yaml["frame_width"].as<int>()));
