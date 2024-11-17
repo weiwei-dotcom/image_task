@@ -1,7 +1,6 @@
-model_path: "home/ww/Documents/yolov10/yolov10m.pt"
+model_path: "/home/wl/Documents/yolov10/yolov10m.pt"
 fps: 30
 font_size: 2
 thickness: 3
-font_style: "Arial"
 confidence: 0.4
 

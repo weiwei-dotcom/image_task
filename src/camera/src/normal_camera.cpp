@@ -3,7 +3,7 @@
 void NormalCamera::InitParam() {
     
     // 读取参数
-    _config_yaml = YAML::LoadFile("/home/ww/Documents/image_task/src/camera/config/normal_camera.yaml");
+    _config_yaml = YAML::LoadFile("/home/wl/Documents/image_task/src/camera/config/normal_camera.yaml");
 
     this->declare_parameter<int>("device_id", 0);
     this->set_parameter(rclcpp::Parameter("device_id", _config_yaml["device_id"].as<int>()));
@@ -71,7 +71,7 @@ NormalCamera::NormalCamera():rclcpp::Node("normal_camera") {
     OpenCamera();
     _cv2msg.encoding = sensor_msgs::image_encodings::BGR8;
     // 创建发布者
-    this->_iamge_pub = this->create_publisher<sensor_msgs::msg::Image>("iamge", 10);
+    this->_iamge_pub = this->create_publisher<sensor_msgs::msg::Image>("image", 10);
     // 创建发布图像消息定时器
     this->_pub_timer = this->create_wall_timer(
         std::chrono::milliseconds(int(1000/_config.fps)),

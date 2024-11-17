@@ -38,7 +38,7 @@ endif()
 
 include_directories(${OpenCV_INCLUDE_DIRS} ${YAML_CPP_INCLUDE_DIR})
 
-add_executable(normal src/main.cpp src/normal_camera.cpp src/normal_camera.hpp)
+add_executable(normal src/normal_entry.cpp src/normal_camera.cpp src/normal_camera.hpp)
 
 ament_target_dependencies(normal rclcpp cv_bridge sensor_msgs std_msgs)
 
