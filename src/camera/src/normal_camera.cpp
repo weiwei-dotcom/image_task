@@ -5,8 +5,6 @@ void NormalCamera::InitParam() {
     // 读取参数
     _config_yaml = YAML::LoadFile("/home/wl/Documents/image_task/src/camera/config/normal_camera.yaml");
 
-    RCLCPP_INFO(this->get_logger(), "8");
-
     this->declare_parameter<int>("device_id", 0);
     this->set_parameter(rclcpp::Parameter("device_id", _config_yaml["normal_camera"]["ros__parameters"]["device_id"].as<int>()));
     this->get_parameter<int>("device_id", _config.device_id);
@@ -30,9 +28,6 @@ void NormalCamera::InitParam() {
     this->declare_parameter<double>("fx", 1.0);
     this->set_parameter(rclcpp::Parameter("fx", _config_yaml["normal_camera"]["ros__parameters"]["fx"].as<double>()));
     this->get_parameter("fx", _config.intrinsic.at<double>(0,0));
-
-    RCLCPP_INFO(this->get_logger(), "34");
-
 
     this->declare_parameter<double>("fy", 1.0);
     this->set_parameter(rclcpp::Parameter("fy", _config_yaml["normal_camera"]["ros__parameters"]["fy"].as<double>()));
@@ -65,7 +60,6 @@ void NormalCamera::InitParam() {
     this->declare_parameter<double>("k3", 0.0);
     this->set_parameter(rclcpp::Parameter("k3", _config_yaml["normal_camera"]["ros__parameters"]["k3"].as<double>()));
     this->get_parameter("k3", _config.dist_coeff.at<double>(0,4));
-    RCLCPP_INFO(this->get_logger(), "65");
 }
 
 NormalCamera::NormalCamera():rclcpp::Node("normal_camera") {
