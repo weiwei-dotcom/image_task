@@ -12,7 +12,7 @@ import random
 class YoloDetector(Node):
     
     def __init__(self):
-        super().__init__('yolo')
+        super().__init__('yolo_detect')
         self.InitParams()
         self.bridge = CvBridge()
         self.model = YOLO(self.config["model_path"])
@@ -30,14 +30,13 @@ class YoloDetector(Node):
         self.declare_parameter("fps", 30)
         self.declare_parameter("confidence", 0.5)
         self.declare_parameter("font_size", 2)
-        self.declare_parameter("font_style", "Arial")
         self.declare_parameter("thickness", 3)
         self.set_parameters([
-            Parameter('model_path', Parameter.Type.STRING, self.config_yaml["model_path"]),
-            Parameter('fps', Parameter.Type.INTEGER, self.config_yaml["fps"]),
-            Parameter('confidence', Parameter.Type.DOUBLE, self.config_yaml["confidence"]),
-            Parameter('font_size', Parameter.Type.INTEGER, self.config_yaml["font_size"]),
-            Parameter('thickness', Parameter.Type.INTEGER, self.config_yaml["thickness"])])
+            Parameter('model_path', Parameter.Type.STRING, self.config_yaml["yolo_detect"]["ros__parameters"]["model_path"]),
+            Parameter('fps', Parameter.Type.INTEGER, self.config_yaml["yolo_detect"]["ros__parameters"]["fps"]),
+            Parameter('confidence', Parameter.Type.DOUBLE, self.config_yaml["yolo_detect"]["ros__parameters"]["confidence"]),
+            Parameter('font_size', Parameter.Type.INTEGER, self.config_yaml["yolo_detect"]["ros__parameters"]["font_size"]),
+            Parameter('thickness', Parameter.Type.INTEGER, self.config_yaml["yolo_detect"]["ros__parameters"]["thickness"])])
         self.config["model_path"] = self.get_parameter("model_path").get_parameter_value().string_value
         self.config["fps"] = self.get_parameter("fps").get_parameter_value().integer_value
         self.config["confidence"] = self.get_parameter("confidence").get_parameter_value().double_value

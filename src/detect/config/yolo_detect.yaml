@@ -1,6 +1,8 @@
-model_path: "/home/wl/Documents/yolov10/yolov10m.pt"
-fps: 30
-font_size: 2
-thickness: 3
-confidence: 0.4
+yolo_detect:
+  ros__parameters:
+    model_path: "/home/wl/Documents/yolov10/yolov10m.pt"
+    fps: 30
+    font_size: 2
+    thickness: 3
+    confidence: 0.4
 
