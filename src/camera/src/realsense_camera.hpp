@@ -1,18 +1,22 @@
-#ifndef NORMAL_CAMERA_HPP
-#define NORMAL_CAMERA_HPP
-
+#ifndef REALSENSE_CAMERA_HPP
+#define REALSENSE_CAMERA_HPP
 #include <rclcpp/rclcpp.hpp>
-#include <opencv2/opencv.hpp>
 #include <sensor_msgs/msg/image.hpp>
+#include <std_msgs/msg/bool.hpp>
+#include <opencv2/opencv.hpp>
 #include <cv_bridge/cv_bridge.h>
-#include <std_msgs/msg/header.hpp>
-#include "yaml-cpp/yaml.h"
+#include <image_transport/image_transport.hpp>
+#include <fstream>
+#include <yaml-cpp/yaml.h>
+#include <librealsense2/rs.hpp>
 
-class NormalCamera : public rclcpp::Node{
+class RealsenseCamera : public rclcpp::Node
+{
 public:
-    NormalCamera();
+    RealsenseCamera();
     void InitParam();
     void OpenCamera();
+
 
 private:
     struct Config {
@@ -24,12 +28,14 @@ private:
         cv::Mat intrinsic;
         cv::Mat dist_coeff;
     };
-    YAML::Node _config_yaml;
+
+    // 创建realsense管道
+    rs2::pipeline _p;
+    // 全局参数
     Config _config;
-    cv::VideoCapture _cap;
-    rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _iamge_pub;
-    rclcpp::TimerBase::SharedPtr _pub_timer;
     cv_bridge::CvImage _cv2msg;
+    rclcpp::TimerBase::SharedPtr _timer;
+    rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _img_pub;
     void PubImgCallback();
 };
 

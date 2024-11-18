@@ -23,6 +23,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(realsense2 REQUIRED)
 
 
 if(BUILD_TESTING)
@@ -39,13 +40,17 @@ endif()
 include_directories(${OpenCV_INCLUDE_DIRS} ${YAML_CPP_INCLUDE_DIR})
 
 add_executable(normal src/normal_entry.cpp src/normal_camera.cpp src/normal_camera.hpp)
+add_executable(realsense src/realsense_entry.cpp src/realsense_camera.cpp src/realsense_camera.hpp)
 
 ament_target_dependencies(normal rclcpp cv_bridge sensor_msgs std_msgs)
+ament_target_dependencies(realsense rclcpp cv_bridge sensor_msgs std_msgs realsense2)
 
 target_link_libraries(normal ${OPENCV_LIBS} yaml-cpp)
+target_link_libraries(realsense ${OPENCV_LIBS} yaml-cpp ${realsense2_LIBRARY})
 
 install(TARGETS
   normal
+  realsense
   DESTINATION 
   lib/${PROJECT_NAME}  
 )
