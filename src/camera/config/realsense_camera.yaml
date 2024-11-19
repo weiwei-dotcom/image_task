@@ -1,4 +1,4 @@
-normal_camera:
+realsense_camera:
   ros__parameters:
     undistort: false
     device_id: 0

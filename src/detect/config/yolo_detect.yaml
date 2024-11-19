@@ -5,4 +5,5 @@ yolo_detect:
     font_size: 2
     thickness: 3
     confidence: 0.4
+    min_area: 0.1
 
