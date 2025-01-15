@@ -18,7 +18,7 @@ class YoloDetector(Node):
         self.bridge = CvBridge()
         self.model = YOLO(self.config["model_path"])
         self.img_sub = self.create_subscription(Image, 'image', self.ImgCallBack, 10)
-        self.get_tar_cli = self.create_service(TarState, 'get_tar_state', self.GetTarStateCallback)
+        self.get_tar_server = self.create_service(TarState, 'get_tar_state', self.GetTarStateCallback)
         self.color = [[]]
         for i in range(1000):
             self.color.append([random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
