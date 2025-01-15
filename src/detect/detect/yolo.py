@@ -36,8 +36,8 @@ class YoloDetector(Node):
                 response.success = True
                 if max_area < temp_area:
                     max_area = temp_area
-                    response.x = (box.xyxy[0][0] + box.xyxy[0][2]) / 2
-                    response.y = (box.xyxy[0][1] + box.xyxy[0][3]) / 2
+                    response.x = box.xywh[0][0]
+                    response.y = box.xywh[0][1]
         
     def InitParams(self):
         with open("/home/wl/Documents/image_task/src/detect/config/yolo_detect.yaml", mode="r", encoding="utf8") as file:
@@ -71,7 +71,7 @@ class YoloDetector(Node):
             for box in result.boxes:
                 cv2.rectangle(cv_img, (int(box.xyxy[0][0]), int(box.xyxy[0][1])), (int(box.xyxy[0][2]), int(box.xyxy[0][3])), self.color[int(box.cls[0])], self.config["thickness"])
                 cv2.putText(cv_img, f"{result.names[int(box.cls[0])]}", (int(box.xyxy[0][0]), int(box.xyxy[0][1]+25)), cv2.FONT_HERSHEY_PLAIN, self.config["font_size"], self.color[int(box.cls[0])], self.config["thickness"])
-                cv2.putText(cv_img, f"{int(box.xyxy[0][0])}, {int(box.xyxy[0][1])}", (int(box.xyxy[0][0]), int(box.xyxy[0][3]-7)), cv2.FONT_HERSHEY_PLAIN, self.config["font_size"], self.color[int(box.cls[0])], self.config["thickness"])
+                cv2.putText(cv_img, f"{int(box.xywh[0][0])}, {int(box.xywh[0][1])}", (int(box.xyxy[0][0]), int(box.xyxy[0][3]-7)), cv2.FONT_HERSHEY_PLAIN, self.config["font_size"], self.color[int(box.cls[0])], self.config["thickness"])
         cv2.imshow("yolo-detect-result", cv_img)
         cv2.waitKey(int(1000/self.config["fps"]+1))
 

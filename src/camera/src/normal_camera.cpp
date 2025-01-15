@@ -5,60 +5,40 @@ void NormalCamera::InitParam() {
     // 读取参数
     _config_yaml = YAML::LoadFile("/home/wl/Documents/image_task/src/camera/config/normal_camera.yaml");
 
-    this->declare_parameter<int>("device_id", 0);
-    this->set_parameter(rclcpp::Parameter("device_id", _config_yaml["normal_camera"]["ros__parameters"]["device_id"].as<int>()));
+    this->declare_parameter<int>("device_id", _config_yaml["normal_camera"]["ros__parameters"]["device_id"].as<int>());
     this->get_parameter<int>("device_id", _config.device_id);
 
-    this->declare_parameter<int>("frame_width", 640);
-    this->set_parameter(rclcpp::Parameter("frame_width", _config_yaml["normal_camera"]["ros__parameters"]["frame_width"].as<int>()));
+    this->declare_parameter<int>("frame_width", _config_yaml["normal_camera"]["ros__parameters"]["frame_width"].as<int>());
     this->get_parameter("frame_width", _config.frame_width);
 
-    this->declare_parameter<int>("frame_height", 480);
-    this->set_parameter(rclcpp::Parameter("frame_height", _config_yaml["normal_camera"]["ros__parameters"]["frame_height"].as<int>()));
+    this->declare_parameter<int>("frame_height", _config_yaml["normal_camera"]["ros__parameters"]["frame_height"].as<int>());
     this->get_parameter("frame_height", _config.frame_height);
 
-    this->declare_parameter<int>("fps", 30);
-    this->set_parameter(rclcpp::Parameter("fps", _config_yaml["normal_camera"]["ros__parameters"]["fps"].as<int>()));
+    this->declare_parameter<int>("fps", _config_yaml["normal_camera"]["ros__parameters"]["fps"].as<int>());
     this->get_parameter("fps", _config.fps);
+    
     // 读取相机内参
     _config.intrinsic = cv::Mat::zeros(3, 3, CV_64F);
     _config.intrinsic.at<double>(2,2) = 0;
     _config.dist_coeff = cv::Mat::zeros(1, 5, CV_64F);
-
-    this->declare_parameter<double>("fx", 1.0);
-    this->set_parameter(rclcpp::Parameter("fx", _config_yaml["normal_camera"]["ros__parameters"]["fx"].as<double>()));
+    
+    this->declare_parameter<double>("fx", _config_yaml["normal_camera"]["ros__parameters"]["fx"].as<double>());
+    this->declare_parameter<double>("fy", _config_yaml["normal_camera"]["ros__parameters"]["fy"].as<double>());
+    this->declare_parameter<double>("cx", _config_yaml["normal_camera"]["ros__parameters"]["cx"].as<double>());
+    this->declare_parameter<double>("cy", _config_yaml["normal_camera"]["ros__parameters"]["cy"].as<double>());
+    this->declare_parameter<double>("k1", _config_yaml["normal_camera"]["ros__parameters"]["k1"].as<double>());
+    this->declare_parameter<double>("k2", _config_yaml["normal_camera"]["ros__parameters"]["k2"].as<double>());
+    this->declare_parameter<double>("p1", _config_yaml["normal_camera"]["ros__parameters"]["p1"].as<double>());
+    this->declare_parameter<double>("p2", _config_yaml["normal_camera"]["ros__parameters"]["p2"].as<double>());
+    this->declare_parameter<double>("k3", _config_yaml["normal_camera"]["ros__parameters"]["k3"].as<double>());
     this->get_parameter("fx", _config.intrinsic.at<double>(0,0));
-
-    this->declare_parameter<double>("fy", 1.0);
-    this->set_parameter(rclcpp::Parameter("fy", _config_yaml["normal_camera"]["ros__parameters"]["fy"].as<double>()));
     this->get_parameter("fy", _config.intrinsic.at<double>(1,1));
-
-    this->declare_parameter<double>("cx", 320);
-    this->set_parameter(rclcpp::Parameter("cx", _config_yaml["normal_camera"]["ros__parameters"]["cx"].as<double>()));
     this->get_parameter("cx", _config.intrinsic.at<double>(0,2));
-
-    this->declare_parameter<double>("cy", 240);
-    this->set_parameter(rclcpp::Parameter("cy", _config_yaml["normal_camera"]["ros__parameters"]["cy"].as<double>()));
     this->get_parameter("cy", _config.intrinsic.at<double>(1,2));
-
-    this->declare_parameter<double>("k1", 0.0);
-    this->set_parameter(rclcpp::Parameter("k1", _config_yaml["normal_camera"]["ros__parameters"]["k1"].as<double>()));
     this->get_parameter("k1", _config.dist_coeff.at<double>(0,1));
-
-    this->declare_parameter<double>("k2", 0.0);
-    this->set_parameter(rclcpp::Parameter("k2", _config_yaml["normal_camera"]["ros__parameters"]["k2"].as<double>()));
     this->get_parameter("k2", _config.dist_coeff.at<double>(0,1));
-
-    this->declare_parameter<double>("p1", 0.0);
-    this->set_parameter(rclcpp::Parameter("p1", _config_yaml["normal_camera"]["ros__parameters"]["p1"].as<double>()));
     this->get_parameter("p1", _config.dist_coeff.at<double>(0,2));
-
-    this->declare_parameter<double>("p2", 0.0);
-    this->set_parameter(rclcpp::Parameter("p2", _config_yaml["normal_camera"]["ros__parameters"]["p2"].as<double>()));
     this->get_parameter("p2", _config.dist_coeff.at<double>(0,3));
-
-    this->declare_parameter<double>("k3", 0.0);
-    this->set_parameter(rclcpp::Parameter("k3", _config_yaml["normal_camera"]["ros__parameters"]["k3"].as<double>()));
     this->get_parameter("k3", _config.dist_coeff.at<double>(0,4));
 }
 

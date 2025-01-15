@@ -1,7 +1,7 @@
 realsense_camera:
   ros__parameters:
     undistort: false
-    device_id: 0
+    device_id: 1
     frame_width: 640
     frame_height: 480
     # 如果是realSense深度相机只支持30帧率
