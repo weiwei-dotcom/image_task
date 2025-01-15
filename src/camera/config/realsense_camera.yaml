@@ -4,7 +4,6 @@ realsense_camera:
     device_id: 1
     frame_width: 640
     frame_height: 480
-    # 如果是realSense深度相机只支持30帧率
     fps: 30
     # 焦距
     fx: 1.0
