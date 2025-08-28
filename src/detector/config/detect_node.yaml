@@ -1,0 +1,17 @@
+detect_node:
+  ros__parameters:
+    detector_ids: [
+      dashboard_detector,
+    ]
+
+    dashboard_detect: 
+      plugin: "detector::DashboardDetector"
+      det_param_package: "detector"
+      det_bin_package: "detector"
+      yolov8_param_package: "detector"
+      yolov8_bin_package: "detector"
+      
+      det_param: "weights/nanodet.param"
+      det_bin: "weights/nanodet.bin"
+      yolov8_param: "weights/yolov8s-pose-opt.param"
+      yolov8_bin: "weights/yolov8sj-pose-opt.bin"

@@ -1,0 +1,7 @@
+<class_libraries>
+  <library path="dashboard_detector">
+    <class name="detector/DashboardDetetor" type="detector::DashboardDetetor" base_class_type="image_task_core::BaseDetector">
+      <description>dashboard detector</description>
+    </class>
+  </library>
+</class_libraries>
