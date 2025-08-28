@@ -61,6 +61,13 @@ public:
             RCLCPP_WARN(this->get_logger(), "detector_node haven't been activated!");
             return;
         }
+        std::string detect_id = request->detector_id;
+        if (detect_id.empty) {
+            detect_id = "dashboard_detector";
+        }
+        if (detectors_.find(detect_id) == detectors_.end()) {
+            RCLCPP_ERROR(this->get_logger, )
+        }
         // todo: here...
         // detector_id
     }
