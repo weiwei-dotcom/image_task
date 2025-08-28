@@ -1,4 +1,4 @@
-#include "yolov8_pose.h"
+#include "detector/yolov8_pose.h"
 // #define VISUALIZER
 
 bool Yolov8Pose::hasGPU = true;

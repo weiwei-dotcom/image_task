@@ -22,8 +22,8 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/DetectDashboard.srv"
-  "msg/ObjectDashboard.msg"
+  "srv/ObjectDetect.srv"
+  "msg/Object.msg"
   DEPENDENCIES std_msgs sensor_msgs
 )
 

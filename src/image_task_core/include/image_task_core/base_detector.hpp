@@ -13,7 +13,8 @@
 #define BASE_DETECTOR__HPP
 
 #include "rclcpp/rclcpp.hpp"
-#include "interface/msg/object_dashboard.hpp"
+#include "rclcpp_lifecycle/lifecycle_node.hpp"
+#include "interface/msg/object.hpp"
 #include "opencv2/opencv.hpp"
 
 namespace image_task_core {
@@ -22,10 +23,10 @@ class BaseDetector {
 public:
     BaseDetector() = default;
     virtual void configure(const rclcpp_lifecycle::LifecycleNode::SharedPtr parent, const std::string & detector_id) = 0;
-    virtual interface::msg::ObjectDashboard detect(const cv::Mat & input_image) = 0;
-    ~BaseGoalChecker() = default;
+    virtual interface::msg::Object detect(const cv::Mat & input_image) = 0;
+    ~BaseDetector() = default;
 
-}
+};
     
 }
 

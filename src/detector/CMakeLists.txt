@@ -35,13 +35,11 @@ include_directories(
 )
 
 add_library(
-    dashboard_detector SHARED plugins/dashboard_detector.cpp
+    dashboard_detector SHARED plugins/dashboard_detector.cpp plugins/nanodet.cpp plugins/yolov8_pose.cpp
 )
 add_executable(
     detect_node
-    src/main.cpp
-    src/yolov8_pose.cpp
-    src/nanodet.cpp
+    src/detect_node.cpp
 )
 
 ament_target_dependencies(dashboard_detector
@@ -62,6 +60,9 @@ target_link_libraries(
     ncnn
 )
 
+install(DIRECTORY include
+  DESTINATION include
+)
 install(TARGETS detect_node
     DESTINATION lib/${PROJECT_NAME}
 )
@@ -70,7 +71,6 @@ install(TARGETS dashboard_detector
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
 )
-
 install(DIRECTORY config weights
     DESTINATION share/${PROJECT_NAME}
 )

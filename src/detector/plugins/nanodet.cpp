@@ -3,7 +3,7 @@
 // 2020 / 10 / 2
 //
 
-#include "nanodet.h"
+#include "detector/nanodet.h"
 #include <benchmark.h>
 // #include <iostream>
 

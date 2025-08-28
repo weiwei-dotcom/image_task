@@ -14,7 +14,7 @@
 
 #include "layer.h"
 #include "net.h"
-#include "nanodet.h"
+#include "detector/nanodet.h"
 #include "opencv2/opencv.hpp"
 
 #include <float.h>
