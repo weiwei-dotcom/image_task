@@ -23,7 +23,7 @@ class BaseDetector {
 public:
     BaseDetector() = default;
     virtual void configure(const rclcpp_lifecycle::LifecycleNode::SharedPtr parent, const std::string & detector_id) = 0;
-    virtual interface::msg::Object detect(const cv::Mat & input_image) = 0;
+    virtual std::optional<std::vector<interface::msg::Object>> detect(const cv::Mat & input_image) = 0;
     ~BaseDetector() = default;
 
 };

@@ -7,7 +7,7 @@ endif()
 
 set(CMAKE_BUILD_TYPE Release)
 
-# todo:如果部署成功要将该功能包安装到environment中
+# todo: 如果部署成功要将该功能包安装到environment中
 set(ncnn_DIR "/home/ww/ncnn/install/lib/cmake/ncnn")
 
 # find dependencies
@@ -18,6 +18,7 @@ find_package(image_task_core REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(interface REQUIRED)
+find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(ncnn REQUIRED)
 find_package(OpenMP REQUIRED)
@@ -43,10 +44,10 @@ add_executable(
 )
 
 ament_target_dependencies(dashboard_detector
-    rclcpp sensor_msgs interface rclcpp_lifecycle image_task_core pluginlib
+    rclcpp sensor_msgs interface rclcpp_lifecycle image_task_core pluginlib cv_bridge
 )
 ament_target_dependencies(detect_node
-    rclcpp sensor_msgs interface rclcpp_lifecycle image_task_core pluginlib
+    rclcpp sensor_msgs interface rclcpp_lifecycle image_task_core pluginlib cv_bridge
 )
 
 target_link_libraries(

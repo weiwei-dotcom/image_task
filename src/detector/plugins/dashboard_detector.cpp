@@ -12,7 +12,7 @@
 
 namespace detector {
 
-void DashBoardDetector::configure(const rclcpp_lifecycle::LifecycleNode::SharedPtr parent, const std::string & detector_id) {
+void DashboardDetector::configure(const rclcpp_lifecycle::LifecycleNode::SharedPtr parent, const std::string & detector_id) {
     node_ = parent;
 
     node_->declare_parameter<std::string>(detector_id + ".det_param_package", "detector");
@@ -38,15 +38,15 @@ void DashBoardDetector::configure(const rclcpp_lifecycle::LifecycleNode::SharedP
     std::string yolov8_param_path = ament_index_cpp::get_package_share_directory(yolov8_param_package) + "/" + yolov8_param;
     std::string yolov8_bin_path = ament_index_cpp::get_package_share_directory(yolov8_bin_package) + "/" + yolov8_bin;
     
-    nanoDet_ = std::make_unique(det_param_path, det_bin_path, false);
-    yolov8Pose_ = std::make_unique(yolov8_param_path, yolov8_bin_path, false);
+    nanoDet_ = std::make_unique<NanoDet>(det_param_path.c_str(), det_bin_path.c_str(), false);
+    yolov8Pose_ = std::make_unique<Yolov8Pose>(yolov8_param_path.c_str(), yolov8_bin_path.c_str(), false);
 
 }
 
-interface::msg::Object DashBoardDetector::detect(const cv::Mat& input_image) {
+std::optional<std::vector<interface::msg::Object>> DashboardDetector::detect(const cv::Mat& input_image) {
     if (input_image.empty()) {
         std::cerr << "cv::imread read image failed" << std::endl;
-        return;
+        return std::nullopt;
     }
 
     std::vector<ObjectDetect> objects;
@@ -97,23 +97,24 @@ interface::msg::Object DashBoardDetector::detect(const cv::Mat& input_image) {
                     // debug
                 }
             }
-        }else{
+        } else {
             std::cout << "No objects detected." << std::endl;
         }
-        // cv::Mat save_frame = yolov8Pose_->result_visualizer(input_image, objects, scale_values);
-        // cv::imshow("save_frame", save_frame);
-        // cv::waitKey(0);
 
     } else {
         std::cout << "No objects detected." << std::endl;
     }
 
     // todo:
-    interface::msg::Object test_object;
+    std::vector<interface::msg::Object> test_object;
     return test_object;
+}
+
+DashboardDetector::~DashboardDetector() {
+
 }
 
 }
 
 #include "pluginlib/class_list_macros.hpp"
-PLUGINLIB_EXPORT_CLASS(detector::DashBoardDetector, image_task_core::BaseDetector)
+PLUGINLIB_EXPORT_CLASS(detector::DashboardDetector, image_task_core::BaseDetector)
